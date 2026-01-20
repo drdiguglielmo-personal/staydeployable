@@ -1,0 +1,16 @@
+{
+  "name": "stay-deployable",
+  "version": "1.0.0",
+  "description": "A website project",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
