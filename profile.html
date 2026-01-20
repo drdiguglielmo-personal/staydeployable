@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAY DEPLOYABLE</title>
+    <link rel="icon" type="image/png" href="flag.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
+</head>
+<body>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="profile.html" class="nav-link">Profile</a>
+            <a href="standards.html" class="nav-link">Standards</a>
+        </div>
+        <div class="nav-title">
+            <h1 class="title">STAY DEPLOYABLE</h1>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Profile</h2>
+        <div id="profileContent" class="profile-content">
+            <!-- View Mode -->
+            <div id="profileView" class="profile-view">
+                <div class="profile-info">
+                    <div class="info-item">
+                        <span class="info-label">First Name:</span>
+                        <span id="viewFirstName" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Name:</span>
+                        <span id="viewLastName" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Username:</span>
+                        <span id="viewUsername" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">MOS/Rate/Designator:</span>
+                        <span id="viewMOS" class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Why you signed up:</span>
+                        <p id="viewWhySignup" class="info-value-text"></p>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button id="editButton" class="profile-button edit-button">Edit Profile</button>
+                    <button id="deleteButton" class="profile-button delete-button">Delete Account</button>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div id="profileEdit" class="profile-edit" style="display: none;">
+                <form id="profileEditForm" class="profile-edit-form">
+                    <div class="form-group">
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" id="editFirstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" id="editLastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMOS">MOS/Rate/Designator</label>
+                        <input type="text" id="editMOS" name="mos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editWhySignup">Why are you signing up for this?</label>
+                        <textarea id="editWhySignup" name="whySignup" rows="4" required></textarea>
+                    </div>
+                    <div id="profileErrorMessage" class="error-message" style="display: none;"></div>
+                    <div class="profile-edit-actions">
+                        <button type="submit" class="profile-button save-button">Save Changes</button>
+                        <button type="button" id="cancelButton" class="profile-button cancel-button">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="profile.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            requireAuth();
+            
+            // Wait for Parse to be initialized, then load profile
+            function waitForParseAndLoad() {
+                if (typeof Parse !== 'undefined' && Parse.User.current()) {
+                    loadProfile();
+                } else if (typeof Parse === 'undefined') {
+                    setTimeout(waitForParseAndLoad, 100);
+                } else {
+                    // Parse is loaded but no user - should have been redirected by requireAuth
+                    console.log('No user found after authentication check');
+                }
+            }
+            
+            waitForParseAndLoad();
+        });
+    </script>
+</body>
+</html>

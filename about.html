@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAY DEPLOYABLE</title>
+    <link rel="icon" type="image/png" href="flag.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
+</head>
+<body>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="navbar">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="profile.html" class="nav-link">Profile</a>
+            <a href="standards.html" class="nav-link">Standards</a>
+        </div>
+        <div class="nav-title">
+            <h1 class="title">STAY DEPLOYABLE</h1>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>About Us</h2>
+        <div class="content-section">
+            <p>Thank you for answering the call to service by defending our nation and its way of life. Each and every American family slept soundly while you had the watch, and you happily served with pride. But you’ve moved on to civilian life now, and with that comes the loss of many of the core values that you embraced in the Armed Forces. Life doesn’t look the same in the outside world, and you likely miss your time in the service.</p>
+            <p>Do you remember the day that you enlisted or were commissioned? Do you recall how proud you were to look at the fit and able warrior that you saw in the mirror? Each of us did, of course. But now we’re ten, twenty or thirty years downrange from that day and things don’t look the same in that mirror any more. As life intervened, we let our health and fitness take a back seat to marriage, career and family. And our declining fitness and health are starting to eat away at our quality of life, not only for us veterans but for our families as well.</p>
+            <p>How many of us have been at a VFW bar, an American Legion post, or at a reunion of our old unit and checked out the guys who we served with back in the day? Yeah, some look really great, but some didn’t. We’ve all seen those people from your ship, squadron or platoon who were nearly unrecognizable because they put on so much weight. Nobody wants to be the bad guy and bring it to his or her attention, but its hard to see their decline and the toll that their poor health takes on their loved ones. Nobody wants to talk about it.</p>
+            <p>Its easy to give up. Try as you might, you just can’t seem to lose the weight, and you don’t have time for the gym anymore. How saddening it is to know that there’s no way that you could still fit into your uniform or flight suit. So we simply give up. We let nature take its course and accept it. And as we do so, look at the burden that it places on our VA health care system or our civilian providers, to say nothing of our lifestyles.</p>
+            <p>Its long past time to do something about this. What would your CO, Gunny, First Sargent or Chief say about this? That’s easy, probably “Quit complaining, get up of your backside, take charge and move out!” And that starts with all of us, today. So now we are launching a new program called “Stay Deployable” which will help return your fit warrior body from back in the day. But like anything in the service, you have to do the hard work first.</p>
+            <p>So what does Stay Deployable mean? It simply means that you have become fit enough to pass the current physical fitness and body fat requirements of the Armed Forces. And in doing so, you will achieve the status of “Deployable” just like back in the day. This in not as impossible as it sounds. The current fitness requirements are achievable for the majority of veterans. The Veterans Administration has many tools available to help with improving your health, fitness and nutrition. You track and report your ability to pass the current PRT, all done on the honor system. We will help you find these requirements. Then you report your progress to us. Some of us are disabled and are unable to pass the PRT. In this case, the disabled vet could do his or her best to get as close to deployable status as possible, becoming their “best self” as their circumstances allow. Once close enough, you will be rewarded with the status of “deployable”. And in doing so you will support and inspire all of us!</p>
+            <p>When you have achieved deployable status, the really hard part starts - staying deployable. It doesn’t do any good to be able to pass the PRT and body fat standards, then slip back six months later. This will take a lifelong commitment. Obviously, this will be impossible when you’re ninety years old, but at that age you’ll still enjoy the benefits of the healthy lifestyle that you created. The goal is to be able to pass the PRT twice every year.</p>
+            <p>What do you see in the mirror when you step out of the shower in the morning? Maybe what you see saddens you. You wonder what happened to that fit, in shape young woman or man who proudly wore the uniform on active duty. But please know this: <i>That fit person is not gone forever. He or she is still living inside you. You just have to let him or her out! You can do this!</i></p>
+            <p>Maybe the time will come sometime in the future when your nation might need you again. Yeah, really unlikely - we all know that. But you can still be the warrior that you once were and be ready for that call. Your country still needs you, even if it is simply to show our current generation of warfighters that we veterans will never abandon our core values. Officers, go find your commission and read it. To quote: “This commission is to continue in force during the pleasure of the President of the United States of America.” You’re never un-commissioned.</p>
+            <p>To our brother and sister warriors and warfighters, you have a new set of orders. Band together with your fellow vets to support and inspire one another. Get up out of the trench, get yourself deployable and stay there.</p>
+            <p>Now take charge and move out!</p>
+        
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            requireAuth();
+        });
+    </script>
+</body>
+</html>

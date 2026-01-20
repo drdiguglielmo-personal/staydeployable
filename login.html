@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STAY DEPLOYABLE</title>
+    <link rel="icon" type="image/png" href="flag.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">STAY DEPLOYABLE</h1>
+            <p class="login-subtitle">Please sign in to continue</p>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username or Email</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <button type="submit" class="login-button">Sign In</button>
+            </form>
+            <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script>
+        // Wait for Parse to load, then initialize
+        function initParse() {
+            if (typeof Parse === 'undefined') {
+                setTimeout(initParse, 100);
+                return;
+            }
+            
+            // Initialize Parse with your Back4App credentials
+            Parse.initialize("SMKd8ENI5PgH7Lm7gHPfImkFk8vYTPsqgspstdep", "rKGG3TWOFkZwN52rZgksNo2OyBHuPzEKo3lhsIHN");
+            Parse.serverURL = 'https://parseapi.back4app.com/';
+            
+            console.log('Parse initialized. Server URL:', Parse.serverURL);
+        }
+        
+        initParse();
+        
+        // Wait for Parse to be ready before setting up form handler
+        function setupLoginForm() {
+            if (typeof Parse === 'undefined' || !Parse.serverURL) {
+                setTimeout(setupLoginForm, 100);
+                return;
+            }
+            
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const submitButton = document.querySelector('button[type="submit"]');
+            
+            // Clear previous errors
+            errorMessage.style.display = 'none';
+            
+            // Disable submit button during login
+            submitButton.disabled = true;
+            submitButton.textContent = 'Signing In...';
+            
+            try {
+                // Ensure Parse is initialized
+                if (typeof Parse === 'undefined' || !Parse.serverURL) {
+                    throw new Error('Parse SDK not initialized. Please refresh the page.');
+                }
+                
+                console.log('Attempting login for username:', username);
+                console.log('Parse server URL:', Parse.serverURL);
+                const user = await Parse.User.logIn(username, password);
+                console.log('Login successful:', user);
+                
+                if (user) {
+                    // Store authentication status
+                    localStorage.setItem('authenticated', 'true');
+                    localStorage.setItem('username', user.getUsername());
+                    console.log('User logged in. Username:', user.getUsername());
+                    // Redirect to home page
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error('Login failed - no user returned');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                let errorText = 'Login failed. ';
+                
+                if (error.message) {
+                    if (error.message.includes('Invalid username/password') || error.code === 101) {
+                        errorText = 'Invalid username or password. Please try again.';
+                    } else {
+                        errorText += error.message;
+                    }
+                } else if (error.code === 101) {
+                    errorText = 'Invalid username or password. Please check your credentials.';
+                } else {
+                    errorText += 'Please check your credentials and try again.';
+                }
+                
+                errorMessage.textContent = errorText;
+                errorMessage.style.display = 'block';
+                
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.textContent = 'Sign In';
+            }
+            });
+        }
+        
+        setupLoginForm();
+    </script>
+</body>
+</html>
