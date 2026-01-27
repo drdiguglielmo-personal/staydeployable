@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Warband Stencil';
+    src: url('warband-stencil/Warband Stencil.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
     margin: 0;
     padding: 0;
@@ -5,38 +11,446 @@
 }
 
 body {
-    font-family: 'Anton', 'Arial Black', sans-serif;
-    background: #f5f5dc;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    background: #ffffff;
     min-height: 100vh;
-    padding-top: 80px;
+    padding: 0;
+    margin: 0;
+    color: #333;
 }
 
-.navbar {
-    position: fixed;
+/* Main Layout Structure */
+.main-layout {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
+}
+
+/* Top Section */
+.top-section {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem 4rem;
+    background-image: url('images/camo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    min-height: 50vh;
+}
+
+/* Add overlay for better text readability if needed */
+.top-section::before {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    background: #f5f5dc;
-    border-bottom: 3px solid #1a4d2e;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
 }
 
-.nav-links {
+.top-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+    align-items: flex-start;
+}
+
+.deployable-question {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', 'Apple Chancery', 'Bradley Hand', cursive, serif;
+    font-size: 4.5rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #333;
+    text-transform: none;
+    letter-spacing: 0.05em;
+    margin: 0;
+    margin-top: 15rem;
+    line-height: 1.2;
+    transform: rotate(-15deg);
+}
+
+.image-placeholders {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    height: 400px;
+    margin-top: 2rem;
+    margin-left: auto;
+}
+
+.image-wrapper {
+    position: absolute;
+    display: block;
+    transform: translateX(95px) scale(1.05);
+}
+
+.image-circle {
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    object-fit: cover;
+    display: block;
+    /* Default size - will be overridden by specific image selectors below */
+    width: 180px;
+    height: 180px;
+}
+
+/* ============================================
+   IMAGE POSITIONS - Overlapping/Scattered Layout
+   ============================================
+   Edit the left, top, width, height, and z-index values below
+   to reposition and resize images
+   
+   Current arrangement (serpentine pattern from left to right):
+   - Image 1 (airforce.png): top-left, medium size
+   - Image 2 (IWO.png): below-right of image 1, overlapping
+   - Image 3 (marine.png): above-right of image 2, overlapping
+   - Image 4 (navy.png): below-right of image 3, overlapping
+   - Image 5 (ship.png): below-right of image 4, overlapping
+   ============================================ */
+
+/* Image 1: airforce.png - Far left, high position */
+.image-wrapper:nth-child(1) {
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.image-wrapper:nth-child(1) .image-circle {
+    width: 160px !important;  /* Change width to resize */
+    height: 160px !important; /* Change height to resize */
+}
+
+/* Image 2: IWO.png - Below and right of image 1, overlapping */
+.image-wrapper:nth-child(2) {
+    left: 100px;   /* Change left to move horizontally */
+    top: 150px;     /* Change top to move vertically */
+    z-index: 2;
+}
+
+.image-wrapper:nth-child(2) .image-circle {
+    width: 220px !important;  /* Change width to resize */
+    height: 220px !important; /* Change height to resize */
+}
+
+/* Image 3: marine.png - Above and right of image 2, overlapping */
+.image-wrapper:nth-child(3) {
+    left: 220px;   /* Change left to move horizontally */
+    top: 60px;      /* Change top to move vertically */
+    z-index: 3;
+}
+
+.image-wrapper:nth-child(3) .image-circle {
+    width: 120px !important;  /* Change width to resize */
+    height: 120px !important; /* Change height to resize */
+}
+
+/* Image 4: navy.png - Below and right of image 3, overlapping */
+.image-wrapper:nth-child(4) {
+    left: 360px;   /* Change left to move horizontally */
+    top: 175px;     /* Change top to move vertically */
+    z-index: 4;
+}
+
+.image-wrapper:nth-child(4) .image-circle {
+    width: 190px !important;  /* Change width to resize */
+    height: 190px !important; /* Change height to resize */
+}
+
+/* Image 5: ship.png - Below and right of image 4, overlapping */
+.image-wrapper:nth-child(5) {
+    left: 520px;   /* Change left to move horizontally */
+    top: 130px;     /* Change top to move vertically */
+    z-index: 5;
+}
+
+.image-wrapper:nth-child(5) .image-circle {
+    width: 160px !important;  /* Change width to resize */
+    height: 160px !important; /* Change height to resize */
+}
+
+/* Image 6: helo.png - Continuing the scattered pattern */
+.image-wrapper:nth-child(6) {
+    left: 650px;   /* Change left to move horizontally */
+    top: 60px;      /* Change top to move vertically */
+    z-index: 6;
+}
+
+.image-wrapper:nth-child(6) .image-circle {
+    width: 175px !important;  /* Change width to resize */
+    height: 175px !important; /* Change height to resize */
+}
+
+/* Image 7: helping.png - Continuing the scattered pattern */
+.image-wrapper:nth-child(7) {
+    left: -40px;   /* Change left to move horizontally */
+    top: 130px;     /* Change top to move vertically */
+    z-index: 7;
+}
+
+.image-wrapper:nth-child(7) .image-circle {
+    width: 145px !important;  /* Change width to resize */
+    height: 145px !important; /* Change height to resize */
+}
+
+/* Image 8: usnavy.png - Continuing the scattered pattern */
+.image-wrapper:nth-child(8) {
+    left: 380px;   /* Change left to move horizontally */
+    top: -30px;      /* Change top to move vertically */
+    z-index: 8;
+}
+
+.image-wrapper:nth-child(8) .image-circle {
+    width: 215px !important;  /* Change width to resize */
+    height: 215px !important; /* Change height to resize */
+}
+
+.top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: relative;
+    z-index: 1;
+    gap: 2rem;
+}
+
+.main-title {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 8rem;
+    font-weight: normal;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* Horizontal Divider */
+.horizontal-divider {
+    width: 100%;
+    height: 1px;
+    background: #ffffff;
+    margin: 0;
+}
+
+/* Bottom Section */
+.bottom-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    padding: 2rem 4rem 2rem;
+    background: #002147; /* US Navy blue */
+    position: relative;
+}
+
+.bottom-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.weeks-vet-label {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 1.8rem;
+    color: #FFD700;
+    text-transform: none;
+    margin: 0;
+}
+
+.weeks-vet-content {
+    min-height: 150px;
+    /* Space reserved for dynamic content */
+}
+
+.vertical-divider {
+    width: 1px;
+    background: #FFD700;
+    height: 100%;
+}
+
+.bottom-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 200px);
+    position: relative;
+    padding-right: 20px;
+}
+
+/* Hide native scrollbar */
+.bottom-right::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    display: none;
+}
+
+.bottom-right {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Custom always-visible scrollbar - positioned outside scrollable content */
+.custom-scrollbar {
+    position: absolute;
+    right: 0;
+    width: 12px;
+    z-index: 100;
+    pointer-events: none;
+    /* Position and height will be set by JavaScript to align with bottom-right container */
+}
+
+.scrollbar-track {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+    background: #002147;
+    border-left: 1px solid rgba(255, 215, 0, 0.3);
+    pointer-events: auto;
+    /* Height will be set by JavaScript to match container's visible height */
+}
+
+.scrollbar-thumb {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    width: 8px;
+    background: #FFD700;
+    border-radius: 4px;
+    min-height: 50px;
+    transition: background 0.2s;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    will-change: top;
+    transform: translateZ(0);
+    transition: background 0.2s, top 0s linear;
+}
+
+.scrollbar-thumb:hover {
+    background: #FFA500;
+}
+
+
+/* Navigation bar inside the bottom-right section */
+.section-navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+    background: #002147;
+    padding: 1rem 0;
+    z-index: 100;
+}
+
+.section-nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.section-nav-link {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    color: #FFD700;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.section-nav-link:hover {
+    color: #FFA500;
+}
+
+.nav-divider {
+    color: #FFD700;
+    font-size: 1rem;
+    padding: 0 0.25rem;
+}
+
+.nav-placeholder {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-transform: lowercase;
+    margin: 0;
+}
+
+/* Content in bottom-right section */
+.bottom-right .content-section {
+    width: 100%;
+    margin: 0;
+}
+
+.bottom-right .content-section h2 {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 1.5rem;
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.bottom-right .content-section .section-title {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
+    font-size: 1.8rem;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 0;
+}
+
+.bottom-right .content-section p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 1rem;
+    color: #FFD700;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Bottom Navigation Bar */
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #333;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-navbar .nav-links {
     display: flex;
     gap: 2rem;
     align-items: center;
 }
 
-.nav-link {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+.bottom-navbar .nav-link {
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 1.2rem;
     letter-spacing: 0.1em;
-    color: #1a4d2e;
+    color: #333;
     text-decoration: none;
     text-transform: uppercase;
     padding: 0.5rem 1rem;
@@ -44,24 +458,24 @@ body {
     position: relative;
 }
 
-.nav-link:hover {
-    color: #2d6a47;
+.bottom-navbar .nav-link:hover {
+    color: #666;
     transform: translateY(-2px);
 }
 
-.nav-link::after {
+.bottom-navbar .nav-link::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: #1a4d2e;
+    background: #333;
     transition: width 0.3s ease;
 }
 
-.nav-link:hover::after {
+.bottom-navbar .nav-link:hover::after {
     width: 80%;
 }
 
@@ -70,7 +484,7 @@ body {
 }
 
 .title {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-weight: 400;
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     letter-spacing: 0.15em;
@@ -86,7 +500,7 @@ body {
 }
 
 /* Hamburger menu button */
-.hamburger {
+.bottom-navbar .hamburger {
     display: none;
     flex-direction: column;
     background: transparent;
@@ -97,10 +511,10 @@ body {
     z-index: 1001;
 }
 
-.hamburger span {
+.bottom-navbar .hamburger span {
     width: 25px;
     height: 3px;
-    background: #1a4d2e;
+    background: #333;
     transition: all 0.3s ease;
     border-radius: 2px;
 }
@@ -119,39 +533,66 @@ body {
 
 /* Mobile styles */
 @media (max-width: 768px) {
-    .hamburger {
-        display: flex;
+    .main-layout {
+        padding: 1rem;
     }
 
-    .nav-title {
+    .top-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .deployable-question {
+        font-size: 2.5rem;
+    }
+
+    .main-title {
+        font-size: 3rem;
+    }
+
+    .image-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .bottom-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .vertical-divider {
         display: none;
     }
 
-    .navbar {
+    .bottom-navbar .hamburger {
+        display: flex;
+    }
+
+    .bottom-navbar {
         padding: 1rem;
         justify-content: flex-start;
     }
 
-    .nav-links {
+    .bottom-navbar .nav-links {
         position: fixed;
-        top: 0;
-        left: -100%;
-        width: 70%;
-        max-width: 300px;
-        height: 100vh;
-        background: #f5f5dc;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #ffffff;
         flex-direction: column;
         align-items: flex-start;
-        padding: 4rem 2rem 2rem;
+        padding: 2rem;
         gap: 1rem;
-        transition: left 0.3s ease;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: bottom 0.3s ease;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
+        max-height: 70vh;
         overflow-y: auto;
     }
 
-    .nav-links.active {
-        left: 0;
+    .bottom-navbar .nav-links.active {
+        bottom: 80px;
     }
 
     /* Overlay when menu is open */
@@ -180,14 +621,14 @@ body {
         }
     }
 
-    .nav-link {
+    .bottom-navbar .nav-link {
         font-size: 1.5rem;
         width: 100%;
         padding: 1rem;
-        border-bottom: 1px solid rgba(26, 77, 46, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    .nav-link::after {
+    .bottom-navbar .nav-link::after {
         display: none;
     }
 }
@@ -198,8 +639,14 @@ body {
     margin: 0 auto;
 }
 
+/* Content pages use main-layout structure */
+.main-layout .container {
+    padding: 0;
+    max-width: none;
+}
+
 h2 {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 2rem;
     letter-spacing: 0.1em;
     color: #1a4d2e;
@@ -254,6 +701,11 @@ p {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-image: url('images/camo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .login-container {
@@ -263,24 +715,23 @@ p {
 }
 
 .login-box {
-    background: #f5f5dc;
-    border: 3px solid #1a4d2e;
-    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #333;
+    border-radius: 0;
     padding: 3rem 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
 .login-title {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 2.5rem;
     letter-spacing: 0.15em;
-    color: #1a4d2e;
+    color: #333;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 0.5rem;
-    text-shadow: 
-        1px 1px 0px rgba(0, 0, 0, 0.15),
-        2px 2px 0px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
+    font-weight: normal;
 }
 
 .login-subtitle {
@@ -300,10 +751,10 @@ p {
 }
 
 .form-group label {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 1rem;
     letter-spacing: 0.1em;
-    color: #1a4d2e;
+    color: #333;
     text-transform: uppercase;
     display: block;
     margin-bottom: 0.5rem;
@@ -314,8 +765,8 @@ p {
     padding: 0.75rem 1rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     font-size: 1rem;
-    border: 2px solid #1a4d2e;
-    border-radius: 4px;
+    border: 1px solid #333;
+    border-radius: 0;
     background: #fff;
     color: #333;
     transition: border-color 0.3s ease;
@@ -324,7 +775,7 @@ p {
 
 .form-group input:focus {
     outline: none;
-    border-color: #2d6a47;
+    border-color: #666;
 }
 
 .form-group textarea {
@@ -332,8 +783,8 @@ p {
     padding: 0.75rem 1rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     font-size: 1rem;
-    border: 2px solid #1a4d2e;
-    border-radius: 4px;
+    border: 1px solid #333;
+    border-radius: 0;
     background: #fff;
     color: #333;
     transition: border-color 0.3s ease;
@@ -344,27 +795,27 @@ p {
 
 .form-group textarea:focus {
     outline: none;
-    border-color: #2d6a47;
+    border-color: #666;
 }
 
 .login-button {
     width: 100%;
     padding: 1rem;
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 1.2rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #f5f5dc;
-    background: #1a4d2e;
+    color: #fff;
+    background: #333;
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
     margin-top: 1rem;
 }
 
 .login-button:hover {
-    background: #2d6a47;
+    background: #555;
     transform: translateY(-2px);
 }
 
@@ -391,7 +842,7 @@ p {
 }
 
 .register-link a {
-    color: #1a4d2e;
+    color: #333;
     text-decoration: none;
     font-weight: bold;
 }
@@ -406,16 +857,17 @@ p {
 
 /* Profile Page Styles */
 .profile-content {
-    margin-top: 2rem;
-    max-width: 800px;
+    margin-top: 0;
+    max-width: 100%;
+    width: 100%;
 }
 
 .profile-info {
-    background: #fff;
-    border: 2px solid #1a4d2e;
-    border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 1.5rem;
 }
 
 .info-item {
@@ -431,10 +883,10 @@ p {
 }
 
 .info-label {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 1rem;
     letter-spacing: 0.1em;
-    color: #1a4d2e;
+    color: #333;
     text-transform: uppercase;
     display: block;
     margin-bottom: 0.5rem;
@@ -463,7 +915,7 @@ p {
 }
 
 .profile-button {
-    font-family: 'Anton', 'Arial Black', sans-serif;
+    font-family: 'Warband Stencil', 'Arial Black', sans-serif;
     font-size: 1.1rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -475,17 +927,19 @@ p {
 }
 
 .edit-button {
-    background: #1a4d2e;
-    color: #f5f5dc;
+    background: #333;
+    color: #fff;
+    border-color: #333;
 }
 
 .edit-button:hover {
-    background: #2d6a47;
+    background: #555;
+    border-color: #555;
     transform: translateY(-2px);
 }
 
 .delete-button {
-    background: #f5f5dc;
+    background: #fff;
     color: #d32f2f;
     border-color: #d32f2f;
 }
@@ -497,10 +951,10 @@ p {
 }
 
 .profile-edit {
-    background: #fff;
-    border: 2px solid #1a4d2e;
-    border-radius: 8px;
-    padding: 2rem;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
 }
 
 .profile-edit-form {
@@ -515,25 +969,25 @@ p {
 }
 
 .save-button {
-    background: #1a4d2e;
-    color: #f5f5dc;
-    border: 2px solid #1a4d2e;
+    background: #333;
+    color: #fff;
+    border: 2px solid #333;
 }
 
 .save-button:hover {
-    background: #2d6a47;
-    border-color: #2d6a47;
+    background: #555;
+    border-color: #555;
     transform: translateY(-2px);
 }
 
 .cancel-button {
-    background: #f5f5dc;
-    color: #1a4d2e;
-    border: 2px solid #1a4d2e;
+    background: #fff;
+    color: #333;
+    border: 2px solid #333;
 }
 
 .cancel-button:hover {
-    background: #e8e8d0;
+    background: #f5f5f5;
     transform: translateY(-2px);
 }
 

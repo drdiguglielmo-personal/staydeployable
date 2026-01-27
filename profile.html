@@ -5,33 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STAY DEPLOYABLE</title>
     <link rel="icon" type="image/png" href="flag.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Anton&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/parse/dist/parse.min.js"></script>
+    <script>
+        // Prevent scroll jump - restore position immediately
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            var savedPosition = sessionStorage.getItem('scrollPosition');
+            if (savedPosition !== null) {
+                var pos = parseInt(savedPosition);
+                // Set scroll position on both window and document
+                if (document.documentElement) {
+                    document.documentElement.scrollTop = pos;
+                }
+                if (document.body) {
+                    document.body.scrollTop = pos;
+                }
+                window.scrollTo(0, pos);
+                // Also set after a microtask to ensure it sticks
+                setTimeout(function() {
+                    window.scrollTo(0, pos);
+                    if (document.documentElement) {
+                        document.documentElement.scrollTop = pos;
+                    }
+                }, 0);
+            }
+        })();
+    </script>
 </head>
 <body>
-    <div class="nav-overlay" id="navOverlay"></div>
-    <nav class="navbar">
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="about.html" class="nav-link">About Us</a>
-            <a href="profile.html" class="nav-link">Profile</a>
-            <a href="standards.html" class="nav-link">Standards</a>
+    <div class="main-layout">
+        <!-- Top Section -->
+        <div class="top-section">
+            <div class="top-left">
+                <h2 class="deployable-question">Are you deployable?</h2>
+            </div>
+            <div class="top-right">
+                <h1 class="main-title">STAY DEPLOYABLE</h1>
+                <div class="image-placeholders">
+                    <!-- Image 1: airforce.png - Position: grid-column 1, grid-row 1 -->
+                    <div class="image-wrapper">
+                        <img src="images/airforce.png" alt="Air Force" class="image-circle">
+                    </div>
+                    <!-- Image 2: IWO.png - Position: grid-column 3, grid-row 1 -->
+                    <div class="image-wrapper">
+                        <img src="images/IWO.png" alt="IWO" class="image-circle">
+                    </div>
+                    <!-- Image 3: marine.png - Position: grid-column 5, grid-row 1 -->
+                    <div class="image-wrapper">
+                        <img src="images/marine.png" alt="Marine" class="image-circle">
+                    </div>
+                    <!-- Image 4: navy.png - Position: grid-column 2, grid-row 2 -->
+                    <div class="image-wrapper">
+                        <img src="images/navy.png" alt="Navy" class="image-circle">
+                    </div>
+                    <!-- Image 5: ship.png - Position: grid-column 4, grid-row 2 -->
+                    <div class="image-wrapper">
+                        <img src="images/ship.png" alt="Ship" class="image-circle">
+                    </div>
+                    <!-- Image 6: helo.png -->
+                    <div class="image-wrapper">
+                        <img src="images/helo.png" alt="Helo" class="image-circle">
+                    </div>
+                    <!-- Image 7: helping.png -->
+                    <div class="image-wrapper">
+                        <img src="images/helping.png" alt="Helping" class="image-circle">
+                    </div>
+                    <!-- Image 8: usnavy.png -->
+                    <div class="image-wrapper">
+                        <img src="images/usnavy.png" alt="US Navy" class="image-circle">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="nav-title">
-            <h1 class="title">STAY DEPLOYABLE</h1>
-        </div>
-    </nav>
-    <div class="container">
-        <h2>Profile</h2>
-        <div id="profileContent" class="profile-content">
+
+        <!-- Horizontal Divider -->
+        <div class="horizontal-divider"></div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+            <div class="bottom-left">
+                <p class="weeks-vet-label">This week's Veteran:</p>
+                <div class="weeks-vet-content">
+                    <!-- Space reserved for dynamic content -->
+                </div>
+            </div>
+            <div class="vertical-divider"></div>
+            <div class="bottom-right">
+                <nav class="section-navbar">
+                    <div class="section-nav-links">
+                        <a href="index.html" class="section-nav-link">HOME</a>
+                        <span class="nav-divider">|</span>
+                        <a href="about.html" class="section-nav-link">ABOUT US</a>
+                        <span class="nav-divider">|</span>
+                        <a href="profile.html" class="section-nav-link">PROFILE</a>
+                        <span class="nav-divider">|</span>
+                        <a href="standards.html" class="section-nav-link">STANDARDS</a>
+                        <span class="nav-divider">|</span>
+                        <a href="#" class="section-nav-link" id="logoutLink">LOGOUT</a>
+                    </div>
+                </nav>
+                <div id="profileContent" class="profile-content">
             <!-- View Mode -->
             <div id="profileView" class="profile-view">
                 <div class="profile-info">
@@ -88,8 +164,15 @@
                     </div>
                 </form>
             </div>
+            <!-- Custom scrollbar - positioned outside scrollable content -->
+            <div class="custom-scrollbar">
+                <div class="scrollbar-track">
+                    <div class="scrollbar-thumb" id="scrollbarThumb"></div>
+                </div>
+            </div>
         </div>
     </div>
+
     <script src="auth.js"></script>
     <script src="script.js"></script>
     <script src="profile.js"></script>
@@ -111,6 +194,17 @@
             }
             
             waitForParseAndLoad();
+            
+            // Add logout functionality to section navbar
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (typeof logout === 'function') {
+                        logout();
+                    }
+                });
+            }
         });
     </script>
 </body>
